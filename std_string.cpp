@@ -388,3 +388,23 @@ int main()
     return 0;
 }
 
+
+
+
+
+// std::to_string
+
+#include <iostream>
+#include <string>
+
+int main() {
+    int a = 5;
+    float b = 7.7;
+    std::string a_str = std::to_string(a);
+    std::string b_str = std::to_string(b);
+    std::cout << a_str << '\n';     // 5
+    std::cout << b_str << '\n';     // 7.700000
+
+    return 0;
+}
+
