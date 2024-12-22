@@ -48,6 +48,28 @@ int main()
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #include <iostream>
 #include <vector>
 
@@ -101,6 +123,22 @@ int main()
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #include <iostream>
 #include <vector>
 
@@ -144,6 +182,39 @@ int main()
     
     return 0;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -224,6 +295,20 @@ int main()
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //vec.capacity();
 //vec.reserve(5);
 //vec.shrink_to_fit();
@@ -284,6 +369,23 @@ int main()
     std::cout << "size: " << vec3.size() << '\t';
     std::cout << "capacity: " << vec3.capacity() << '\n';
     
+    return 0;
+}
+
+
+
+
+
+// count
+
+#include <iostream>
+#include <vector>
+
+int main() {
+    std::vector<int> numbers = { 1, 2, 3, 4, 5, 5, 6, 7 };
+    int fives = std::count(numbers.begin(), numbers.end(), 5);
+    std::cout << fives << '\n';     // 2
+
     return 0;
 }
 
