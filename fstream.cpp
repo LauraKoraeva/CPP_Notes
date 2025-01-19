@@ -1154,3 +1154,464 @@ int main()
    
     return 0;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#include <iostream>
+#include <fstream>
+
+int main()
+{
+    std::ofstream out_file;
+    out_file.open("file.txt");
+
+    out_file.close();
+
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
+#include <iostream>
+#include <fstream>
+
+int main()
+{
+    std::ofstream out_file;
+    out_file.open("file.txt", std::ios::binary);
+
+    out_file.close();
+
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
+#include <iostream>
+#include <fstream>
+
+int main()
+{
+    std::ofstream out_file("file_file_file.txt");
+
+    out_file.close();
+
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
+#include <iostream>
+#include <fstream>
+
+int main()
+{
+    std::ofstream out_file("file_file_file.txt", std::ios::binary);
+
+    out_file.close();
+
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
+#include <iostream>
+#include <fstream>
+
+int main()
+{
+    std::ofstream out_file("file.txt");
+
+    out_file << "Hello, world!\n";
+
+    out_file.close();
+
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
+#include <iostream>
+#include <fstream>
+
+int main()
+{
+    std::ofstream out_file("file.txt", std::ios::binary);
+
+    out_file << "Hello, world!\n";
+
+    out_file.close();
+
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
+#include <iostream>
+#include <fstream>
+
+int main()
+{
+    std::ofstream out_file("file.txt", std::ios::app);
+
+    out_file << "Hello, world!\n";
+
+    out_file.close();
+
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
+#include <iostream>
+#include <fstream>
+
+int main()
+{
+    std::ofstream out_file("file.txt", std::ios::app, std::ios::binary);
+
+    out_file << "Hello, world!\n";
+
+    out_file.close();
+
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
+#include <iostream>
+#include <fstream>
+
+int main()
+{
+    std::ofstream out_file("file.txt", std::ios::app);
+
+    int number = 25;
+    out_file << number << '\n';
+
+    double temp = 25.5;
+    out_file << temp << '\n';
+
+    std::string greeting = "Hello!";
+    out_file << greeting << '\n';
+
+    out_file.close();
+
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
+#include <iostream>
+#include <fstream>
+
+int main()
+{
+    std::ofstream out_file("file.txt", std::ios::app);
+
+    std::string fruit = "orange";
+    int number = 15;
+
+    out_file << fruit << " " << number << '\n';
+
+    out_file.close();
+
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
+#include <iostream>
+#include <fstream>
+
+int main()
+{
+    std::ofstream out_file("file.txt", std::ios::app);
+
+    out_file.setf(std::ios::showpos);
+
+    double temp = 25.5;
+    out_file << temp << '\n';
+
+    out_file.close();
+
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
+#include <iostream>
+#include <fstream>
+
+int main()
+{
+    std::ofstream out_file("file.txt", std::ios::app);
+
+    out_file.setf(std::ios::boolalpha);
+
+    bool light = true;
+    out_file << light << '\n';
+
+    out_file.close();
+
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
+#include <iostream>
+#include <fstream>
+
+int main()
+{
+    std::ofstream out_file("file.txt", std::ios::app);
+
+    out_file.setf(std::ios::showpoint);
+
+    double temp = 20;
+
+    out_file << temp << '\n';     // 20.0000
+
+    out_file.close();
+
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
+#include <iostream>
+#include <fstream>
+
+int main()
+{
+    std::ofstream out_file("file.txt", std::ios::app);
+
+    out_file.setf(std::ios::showpoint);
+    out_file.precision(3);
+
+    double temp = 20;
+
+    out_file << temp << '\n';     // 20.0
+
+    out_file.close();
+
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
+#include <iostream>
+#include <fstream>
+
+int main()
+{
+    std::ofstream out_file("file.txt");
+
+    out_file.setf(std::ios::showpos);
+    out_file.setf(std::ios::showpoint);
+    out_file.precision(3);
+
+    out_file << 10.5 << std::endl << 8.3 << std::endl << 0 << std::endl << -1.1 << std::endl << -2 << std::endl;
+
+    out_file.close();
+
+    return 0;
+}
+
+// +10.5
+// + 8.30
+// + 0
+// - 1.10
+// - 2
+
+
+
+
+
+
+
+
+
+
+#include <iostream>
+#include <fstream>
+
+int main()
+{
+    std::ofstream out_file("file.txt");
+
+    out_file.setf(std::ios::showpos);
+    out_file.setf(std::ios::showpoint);
+    out_file.setf(std::ios::fixed);
+    out_file.precision(1);
+
+    out_file << 10.5 << std::endl << 8.3 << std::endl << 0 << std::endl << -1.1 << std::endl << -2 << std::endl;
+
+    out_file.close();
+
+    return 0;
+}
+
+// +10.5
+// + 8.3
+// + 0
+// - 1.1
+// - 2
+
+
+
+
+
+
+
+
+
+
+#include <iostream>
+#include <fstream>
+
+int main()
+{
+    std::ofstream out_file("file.txt");
+
+    out_file.setf(std::ios::showpos);
+    out_file.setf(std::ios::showpoint);
+    out_file.setf(std::ios::fixed);
+    out_file.precision(1);
+
+    double temps[] = { 10.5, 8.3, 0, -1.1, -2 };
+    const char* conditions[] = { "sunny", "cloudy", "windy", "snowy", "stormy" };
+
+    for (int i = 0; i < 5; ++i)
+    {
+        out_file.width(5);
+        out_file << temps[i];
+        out_file.width(10);
+        out_file << conditions[i] << std::endl;
+    }
+
+    out_file.close();
+
+    return 0;
+}
+
+// +10.5     sunny
+// + 8.3    cloudy
+// + 0.0     windy
+// - 1.1     snowy
+// - 2.0    stormy
