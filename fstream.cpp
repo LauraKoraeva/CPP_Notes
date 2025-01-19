@@ -1615,3 +1615,53 @@ int main()
 // + 0.0     windy
 // - 1.1     snowy
 // - 2.0    stormy
+
+
+
+
+
+
+
+
+
+
+#include <iostream>
+#include <fstream>
+
+int main()
+{
+    const char* greeting = "Hello, World!";
+
+    std::ofstream out_file("file.txt");
+
+    out_file.write(greeting, std::strlen(greeting));
+
+    out_file.close();
+
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
+#include <iostream>
+#include <fstream>
+
+int main()
+{
+    const char* greeting = "Hello, World!";
+
+    std::ofstream out_file("file.txt", std::ios::binary);
+
+    out_file.write(greeting, std::strlen(greeting));
+
+    out_file.close();
+
+    return 0;
+}
