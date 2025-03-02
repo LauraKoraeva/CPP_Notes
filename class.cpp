@@ -1,4 +1,4 @@
-// Спецификаторы доступа: public     private     protected
+// Спецификаторы доступа: PUBLIC     PRIVATE     PROTECTED
 #include <iostream>
 // Создание класса 
 class Date
@@ -627,7 +627,7 @@ void Date::setDate(int inDay, int inMonth, int inYear)
 
 
 
-// const
+// CONST
 #include <iostream>
 
 class Anything
@@ -663,7 +663,7 @@ int main()
 
 
 
-// const, передача константной ссылки
+// передача константной ссылки
 #include <iostream>
 
 class Date
@@ -704,3 +704,303 @@ int main()
 
 	return 0;
 }
+
+
+
+
+
+
+
+
+
+// STATIC
+// Статическая переменная-член
+#include <iostream>
+
+class Value
+{
+public:
+	static int value;
+};
+
+int Value::value = 5;
+
+int main()
+{
+	Value first;
+	Value second;
+
+	first.value = 7;
+
+	std::cout << first.value << '\n';
+	std::cout << second.value << '\n';
+
+	return 0;
+}
+
+
+
+
+
+
+
+
+
+
+// Доступ к статическому public члену класса без объекта
+#include <iostream>
+
+class Value
+{
+public:
+	static int value;
+};
+
+int Value::value = 5;
+
+int main()
+{
+	Value::value = 7;
+	std::cout << Value::value << '\n';
+
+	return 0;
+}
+
+
+
+
+
+
+
+
+
+
+// Инициализация статических членов внутри тела класса 
+// (констанный интегральный тип (char, bool, int и т.д.)
+// или константное перечисление)
+// все constexpr
+#include <iostream>
+#include <array>
+
+class Anything
+{
+public:
+	static const int value = 5;
+	
+	static constexpr std::array<int, 5> arr = { 1, 2, 3, 4, 5 };
+};
+
+
+
+
+
+
+
+
+
+
+// Статический метод
+#include <iostream>
+
+class Value
+{
+private:
+	static int value;
+
+public:
+	static int getValue() { return value; }
+};
+
+int Value::value = 5;
+
+int main()
+{
+	std::cout << Value::getValue() << '\n';
+}
+
+
+
+
+
+
+
+
+
+
+// Определение статического метода вне тела класса
+#include <iostream>
+
+class IDGenerator
+{
+	static int nextID;
+
+public:
+	static int getNextID();
+};
+
+int IDGenerator::nextID = 1;
+
+int IDGenerator::getNextID() { return nextID++; }
+
+int main()
+{
+	for (int count = 0; count < 5; ++count)
+	{
+		std::cout << "The next ID is: " << IDGenerator::getNextID() << '\n';
+	}
+
+	return 0;
+}
+
+
+
+
+
+
+
+
+
+
+// Инициализации статической переменной-члена выполнением кода
+#include <iostream>
+#include <vector>
+
+class Something
+{
+private:
+	static std::vector<char> myChars;
+
+public:
+
+
+	class Nested
+	{
+	public:
+		Nested()
+		{
+			myChars.push_back('h');
+			myChars.push_back('e');
+			myChars.push_back('l');
+			myChars.push_back('l');
+			myChars.push_back('o');
+		}
+	};
+
+
+	static void getSomething()
+	{
+		for (const auto& element : myChars)
+			std::cout << element;
+	}
+
+
+private:
+	static Nested initializer;
+
+
+};
+
+
+std::vector<char> Something::myChars;
+
+Something::Nested Something::initializer;
+
+
+int main()
+{
+	Something::getSomething();
+
+	return 0;
+}
+
+
+
+
+
+
+
+
+
+
+// Анонимный объект
+#include <iostream>
+
+class Dollars
+{
+private:
+	int dollars;
+
+public:
+	Dollars(int inDollars) { dollars = inDollars; }
+
+	int getDollars() const { return dollars; }
+};
+
+void print(const Dollars& dollars)
+{
+	std::cout << dollars.getDollars() << " dollars.";
+}
+
+int main()
+{
+	print(Dollars(7));  // анонимный объект
+
+	return 0;
+}
+
+
+
+
+
+
+
+
+
+
+// Вложенные типы данных
+// enum
+#include <iostream>
+
+class Fruit
+{
+public: 
+	enum FruitList
+	{
+		AVOCADO,
+		BLACKBERRY,
+		LEMON,
+	};
+
+private:
+	FruitList type;
+
+public:
+	Fruit(FruitList inType) : type(inType) { }
+
+	FruitList getType() const { return type; }
+};
+
+int main()
+{
+	Fruit avocado(Fruit::AVOCADO);
+
+	if (avocado.getType() == Fruit::AVOCADO)
+		std::cout << "avocado\n";
+	else
+		std::cout << "not avocado\n";
+
+	return 0;
+}
+
+
+
+
+
+
+
+
+
+
+// FRIEND
+// Дружественные функции
+
