@@ -1003,4 +1003,622 @@ int main()
 
 // FRIEND
 // Дружественные функции
+#include <iostream>
 
+class Point
+{
+private:
+	double x, y, z;
+
+public:
+	Point(double inX = 0.0, double inY = 0.0, double inZ = 0.0)
+		: x(inX), y(inY), z(inZ) { }
+
+	friend std::ostream& operator<< (std::ostream& out, const Point& point);
+};
+
+std::ostream& operator<< (std::ostream& out, const Point& point)
+{
+	out << "Point(" << point.x << ", " << point.y << ", " << point.z << ")";
+	return out;
+}
+
+int main()
+{
+	Point point(5.0, 6.0, 7.0);
+	std::cout << point;
+
+	return 0;
+}
+
+
+
+
+
+
+
+
+
+
+// Родительский и дочерний классы
+#include <iostream>
+
+class Parent
+{
+	int id;
+
+public:
+	Parent(int inID = 0) : id(inID) { }
+
+	int getID() const { return id; }
+};
+
+class Child : public Parent
+{
+	double value;
+
+public:
+	Child(double inValue = 0.0, int inID = 0)
+		: Parent(inID), value(inValue) { }
+
+	double getValue() const { return value; }
+};
+
+int main()
+{
+	Child child(1.5, 7);
+	std::cout << child.getID() << '\n';
+	std::cout << child.getValue() << '\n';
+
+	return 0;
+}
+
+
+
+
+
+
+
+
+
+
+// Порядок выполнения конструкторов и деструкторов при наследовании
+#include <iostream>
+
+class A
+{
+	int a;
+public:
+	A(int inA = 0) : a(inA) { std::cout << "A: " << a << '\n'; }
+	int getA() const { return a; }
+	~A() { std::cout << "A deleted\n"; }
+};
+
+class B : public A
+{
+	double b;
+public:
+	B(int inA, double inB) : A(inA), b(inB) { std::cout << "B: " << b << '\n'; }
+	double getB() const { return b; }
+	~B() { std::cout << "B deleted\n"; }
+};
+
+class C : public B
+{
+	char c;
+public:
+	C(int inA, double inB, char inC) : B(inA, inB), c(inC) { std::cout << "C: " << c << '\n'; }
+	char getC() const { return c; }
+	~C() { std::cout << "C deleted\n"; }
+};
+
+int main()
+{
+	C c(5, 7.5, 'L');
+
+	return 0;
+}
+
+
+
+
+
+
+
+
+
+
+// Переопределение методов родительского класса
+#include <iostream>
+
+class Parent
+{
+protected:
+	int value;
+
+public:
+	Parent(int inValue = 0) : value(inValue) { }
+
+	void identify() { std::cout << "Parent\n"; }
+};
+
+class Child : public Parent
+{
+public:
+	Child(int inValue) : Parent(inValue) { }
+
+	void identify() { std::cout << "Child\n"; }
+};
+
+int main()
+{
+	Parent parent(5);
+	parent.identify();
+
+	Child child(7);
+	child.identify();
+
+	return 0;
+}
+
+
+
+
+
+
+
+
+
+
+// Расширение функционала родительских методов
+#include <iostream>
+
+class Parent
+{
+protected:
+	int value;
+
+public:
+	Parent(int inValue = 0) : value(inValue) { }
+
+	void identify() { std::cout << "Parent\n"; }
+};
+
+class Child : public Parent
+{
+public:
+	Child(int inValue) : Parent(inValue) { }
+
+	void identify()
+	{
+		Parent::identify();
+		std::cout << "Child\n";
+	}
+};
+
+int main()
+{
+	Parent parent(5);
+	parent.identify();
+
+	Child child(7);
+	child.identify();
+
+	return 0;
+}
+
+
+
+
+
+
+
+
+
+
+// Изменение спецификатора доступа с protected на public
+#include <iostream>
+
+class Parent
+{
+protected:
+	int value;
+
+public:
+	Parent(int inValue = 0) : value(inValue) { }
+
+private:
+	void privatePrint() { std::cout << value << '\n'; }
+protected:
+	void protectedPrint() { std::cout << value << '\n'; }
+public:
+	void publicPrint() { std::cout << value << '\n'; }
+};
+
+class Child : public Parent
+{
+public:
+	Child(int inValue) : Parent(inValue) { }
+
+	using Parent::protectedPrint;
+};
+
+int main()
+{
+	Child child(5);
+	child.publicPrint();
+	child.protectedPrint();
+}
+
+
+
+
+
+
+
+
+
+
+// Изменение спецификатора доступа с public на protected
+#include <iostream>
+
+class Parent
+{
+public:
+	int value;
+
+	Parent(int inValue = 0) : value(inValue) { }
+
+private:
+	void privatePrint() { std::cout << value << '\n'; }
+protected:
+	void protectedPrint() { std::cout << value << '\n'; }
+public:
+	void publicPrint() { std::cout << value << '\n'; }
+};
+
+class Child : public Parent
+{
+public:
+	Child(int inValue) : Parent(inValue) { }
+
+	using Parent::protectedPrint;
+protected:
+	using Parent::value;
+};
+
+int main()
+{
+	Child child(5);
+	// child.value = 7;     // Ошибка
+	child.publicPrint();
+	child.protectedPrint();
+}
+
+
+
+
+
+
+
+
+
+
+// DELETE
+// Сокрытие родительского метода в дочернем классе
+#include <iostream>
+
+class Parent
+{
+	int value;
+
+public:
+	Parent(int inValue = 0) : value(inValue) { }
+
+	int getValue() const { return value; }
+};
+
+class Child : public Parent
+{
+public:
+	Child(int inValue) : Parent(inValue) { }
+
+	int getValue() = delete;
+};
+
+int main()
+{
+	Child child(5);
+	// std::cout << child.getValue();     // Ошибка
+	
+	Parent parent(7);
+	std::cout << parent.getValue();
+
+	return 0;
+}
+
+
+
+
+
+
+
+
+
+
+// Наследование и указатели, ссылки
+#include <iostream>
+
+class Parent
+{
+protected:
+	int value;
+
+public:
+	Parent(int inValue = 0) : value(inValue) { }
+
+	const char* getName() const { return "Parent"; }
+	int getValue() const { return value; }
+};
+
+class Child : public Parent
+{
+public:
+	Child(int inValue) : Parent(inValue) { }
+
+	const char* getName() const { return "Child"; }
+	int getValueDoubled() const { return value * 2; }
+};
+
+int main()
+{
+	Child ch(7);
+	std::cout << ch.getName() << ": " << ch.getValue() << '\n';
+
+	Child& chReference = ch;
+	std::cout << chReference.getName() << ": " << chReference.getValue() << '\n';
+
+	Child* chPointer = &ch;
+	std::cout << chPointer->getName() << ": " << chPointer->getValue() << '\n';
+
+	return 0;
+}
+
+
+
+
+
+
+
+
+
+
+// VIRTUAL     OVERRIDE
+// Виртуальные функции
+#include <iostream>
+
+class Parent
+{
+public:
+	virtual const char* getName() const { return "Parent"; }
+};
+
+class Child : public Parent
+{
+public:
+	const char* getName() const override { return "Child"; }
+};
+
+int main()
+{
+	Child child;
+	Parent& parent = child;
+	std::cout << parent.getName();
+
+	return 0;
+}
+
+
+
+
+
+
+
+
+
+
+// Виртуальные функции и указатели, ссылки на родительскую часть дочерних классов
+#include <iostream>
+
+class Parent
+{
+protected:
+	int value;
+
+public:
+	Parent(int inValue = 0) : value(inValue) { }
+
+	virtual const char* getName() const { return "Parent"; }
+	int getValue() const { return value; }
+};
+
+class Child : public Parent
+{
+public:
+	Child(int inValue) : Parent(inValue) { }
+
+	const char* getName() const override { return "Child"; }
+	int getValueDoubled() const { return value * 2; }
+};
+
+int main()
+{
+	Child child(7);
+	std::cout << child.getName() << ": " << child.getValue() << '\n';
+
+	Parent& pReference = child;
+	std::cout << pReference.getName() << ": " << pReference.getValue() << '\n';
+
+	Parent* pPointer = &child;
+	std::cout << pPointer->getName() << ": " << pPointer->getValue() << '\n';
+
+	return 0;
+}
+
+
+
+
+
+
+
+
+
+
+// Массив объектов класса
+#include <iostream>
+#include <string>
+
+class Animal
+{
+protected:
+	std::string name;
+
+	Animal(std::string inName) : name(inName) { }
+
+public:
+	std::string getName() const { return name; }
+
+	virtual const char* speak() const { return "???"; }
+};
+
+class Dog : public Animal
+{
+public:
+	Dog(std::string inName) : Animal(inName) { }
+
+	const char* speak() const override { return "Woof"; }
+};
+
+void report(Animal& animal)
+{
+	std::cout << animal.getName() << ": " << animal.speak() << '\n';
+}
+
+int main()
+{
+	Dog dogs[] = { Dog("A"), Dog("B"), Dog("C"), Dog("D"), Dog("E") };
+
+	for (int i = 0; i < 5; ++i)
+	{
+		report(dogs[i]);
+	}
+
+	return 0;
+}
+
+
+
+
+
+
+
+
+
+
+// Чистая виртуальная функция с определением вне тела класса
+#include <iostream>
+#include <string>
+
+class Animal
+{
+protected:
+	std::string name;
+
+public:
+	Animal(std::string inName) : name(inName) { }
+
+	std::string getName() const { return name; }
+
+	virtual const char* speak() const = 0;
+};
+
+const char* Animal::speak() const { return "buzz"; }
+
+class Dragonfly : public Animal
+{
+public:
+	Dragonfly(std::string inName) : Animal(inName) { }
+
+	const char* speak() const override
+	{
+		return Animal::speak();
+	}
+};
+
+int main()
+{
+	Dragonfly dfly("D");
+	std::cout << dfly.getName() << ": " << dfly.speak() << '\n';
+
+	return 0;
+}
+
+
+
+
+
+
+
+
+
+
+// Виртуальный базовый класс
+// Множественное наследование
+#include <iostream>
+
+class PoweredDevice
+{
+public:
+	PoweredDevice(int inPower)
+	{
+		std::cout << "PoweredDevice: " << inPower << '\n';
+	}
+};
+
+class Scanner : virtual public PoweredDevice
+{
+public:
+	Scanner(int inScanner, int inPower)
+		: PoweredDevice(inPower)
+	{
+		std::cout << "Scanner: " << inScanner << '\n';
+	}
+};
+
+class Printer : virtual public PoweredDevice
+{
+public:
+	Printer(int inPrinter, int inPower)
+		: PoweredDevice(inPower)
+	{
+		std::cout << "Printer: " << inPower << '\n';
+	}
+};
+
+class Copier : public Scanner, public Printer
+{
+public:
+	Copier(int inScanner, int inPrinter, int inPower)
+		: Scanner(inScanner, inPower),
+		Printer(inPrinter, inPower),
+		PoweredDevice(inPower)
+	{
+	}
+};
+
+int main()
+{
+	Copier copier(1, 2, 3);
+
+	return 0;
+}
